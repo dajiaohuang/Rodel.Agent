@@ -75,11 +75,11 @@ public sealed partial class McpConfigDialog : AppDialog
 
         if (_source != null)
         {
+            await _source.DisconnectCommand.ExecuteAsync(default);
             _source.Data = config;
             _source.Id = name;
             _source.IsEnabled = config.IsEnabled ?? true;
-            _source.SaveCommand.Execute(default);
-            _source.DisconnectCommand.Execute(default);
+            await _source.SaveCommand.ExecuteAsync(default);
         }
         else
         {
