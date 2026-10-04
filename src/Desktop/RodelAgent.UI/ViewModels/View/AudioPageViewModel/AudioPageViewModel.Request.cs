@@ -30,6 +30,7 @@ public sealed partial class AudioPageViewModel
         try
         {
             _audioCts = new CancellationTokenSource();
+            var provider = SelectedService!.ProviderType;
             var options = new AudioOptions
             {
                 ModelId = SelectedModel?.Id,
@@ -46,7 +47,7 @@ public sealed partial class AudioPageViewModel
                 Voice = SelectedVoice?.Data.Id,
                 Model = SelectedModel?.Data.Id,
                 Time = DateTimeOffset.Now,
-                Provider = SelectedService!.ProviderType,
+                Provider = provider,
             };
 
             await this.Get<IStorageService>().AddOrUpdateAudioSessionAsync(record, result.ToArray());

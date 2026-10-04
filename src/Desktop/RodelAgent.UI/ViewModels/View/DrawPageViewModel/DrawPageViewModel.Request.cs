@@ -30,6 +30,7 @@ public sealed partial class DrawPageViewModel
         try
         {
             _drawCts = new CancellationTokenSource();
+            var provider = SelectedService!.ProviderType;
             var options = new DrawOptions
             {
                 ModelId = SelectedModel?.Id,
@@ -44,7 +45,7 @@ public sealed partial class DrawPageViewModel
                 Size = SelectedSize?.Data,
                 Model = SelectedModel?.Data.Id,
                 Time = DateTimeOffset.Now,
-                Provider = SelectedService!.ProviderType,
+                Provider = provider,
             };
 
             await this.Get<IStorageService>().AddOrUpdateDrawSessionAsync(record, result.ToArray());
