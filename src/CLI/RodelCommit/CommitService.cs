@@ -285,7 +285,7 @@ internal sealed class CommitService(Kernel kernel, IChatConfigManager configMana
         };
 
         var summary = await chatService.Client!.GetResponseAsync([chatMsg], options, cancellationToken: _stopCts.Token);
-        return summary.Message.Text!;
+        return summary.Text!;
     }
 
     private static ChatProviderType AskProvider(List<ChatProviderType> availableServices)
