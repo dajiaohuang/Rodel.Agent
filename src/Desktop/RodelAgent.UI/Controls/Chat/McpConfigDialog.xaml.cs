@@ -1,4 +1,5 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
+// Modified 2026-10-21 by Codex: complete the existing PR correction.
 
 using Richasy.WinUIKernel.Share.Toolkits;
 using RodelAgent.UI.Models.Constants;
@@ -55,7 +56,12 @@ public sealed partial class McpConfigDialog : AppDialog
         string[] arguments;
         try
         {
-            arguments = JsonSerializer.Deserialize<string[]>(ArgumentsBox.Text) ?? [];
+            arguments = JsonSerializer.Deserialize<string[]>(ArgumentsBox.Text)
+                ?? throw new JsonException();
+            if (arguments.Any(argument => argument is null))
+            {
+                throw new JsonException();
+            }
         }
         catch (JsonException)
         {
